@@ -35,10 +35,12 @@ namespace cs_pubg_virtual_scope
             if (checkBox_switch.Checked)
             {
                 getParamAndRun();
+                this.WindowState = FormWindowState.Minimized;
             }
             else
             {
                 form_scope.Visible = false;
+                this.WindowState = FormWindowState.Normal;
             }
         }
 
