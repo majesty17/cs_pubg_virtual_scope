@@ -17,6 +17,7 @@ namespace cs_pubg_virtual_scope
         public double times;
         public int freq;
         public bool color_reverse = false;
+        public bool sharpen = false;
 
         private int aim_w;
         private int aim_h;
@@ -32,11 +33,6 @@ namespace cs_pubg_virtual_scope
 
         private void Form_scope_Load(object sender, EventArgs e)
         {
-            //热键
-            Hotkey hotkey;
-            hotkey = new Hotkey(this.Handle);
-            Hotkey1 = hotkey.RegisterHotkey(System.Windows.Forms.Keys.G, Hotkey.KeyFlags.MOD_SHIFT);   //定义快键(Ctrl + F2)
-            hotkey.OnHotkey += new HotkeyEventHandler(OnHotkey);
 
             //设置timer
             timer1.Interval = 1000 / freq;
@@ -53,85 +49,7 @@ namespace cs_pubg_virtual_scope
             
         }
 
-        public delegate void HotkeyEventHandler(int HotKeyID);
-        private int Hotkey1;
-        public class Hotkey : System.Windows.Forms.IMessageFilter
-        {
-            Hashtable keyIDs = new Hashtable();
-            IntPtr hWnd;
 
-            public event HotkeyEventHandler OnHotkey;
-
-            public enum KeyFlags
-            {
-                MOD_ALT = 0x1,
-                MOD_CONTROL = 0x2,
-                MOD_SHIFT = 0x4,
-                MOD_WIN = 0x8
-            }
-            [DllImport("user32.dll")]
-            public static extern UInt32 RegisterHotKey(IntPtr hWnd, UInt32 id, UInt32 fsModifiers, UInt32 vk);
-
-            [DllImport("user32.dll")]
-            public static extern UInt32 UnregisterHotKey(IntPtr hWnd, UInt32 id);
-
-            [DllImport("kernel32.dll")]
-            public static extern UInt32 GlobalAddAtom(String lpString);
-
-            [DllImport("kernel32.dll")]
-            public static extern UInt32 GlobalDeleteAtom(UInt32 nAtom);
-
-            public Hotkey(IntPtr hWnd)
-            {
-                this.hWnd = hWnd;
-                Application.AddMessageFilter(this);
-            }
-
-            public int RegisterHotkey(Keys Key, KeyFlags keyflags)
-            {
-                UInt32 hotkeyid = GlobalAddAtom(System.Guid.NewGuid().ToString());
-                RegisterHotKey((IntPtr)hWnd, hotkeyid, (UInt32)keyflags, (UInt32)Key);
-                keyIDs.Add(hotkeyid, hotkeyid);
-                return (int)hotkeyid;
-            }
-
-            public void UnregisterHotkeys()
-            {
-                Application.RemoveMessageFilter(this);
-                foreach (UInt32 key in keyIDs.Values)
-                {
-                    UnregisterHotKey(hWnd, key);
-                    GlobalDeleteAtom(key);
-                }
-            }
-
-            public bool PreFilterMessage(ref System.Windows.Forms.Message m)
-            {
-                if (m.Msg == 0x312)
-                {
-                    if (OnHotkey != null)
-                    {
-                        foreach (UInt32 key in keyIDs.Values)
-                        {
-                            if ((UInt32)m.WParam == key)
-                            {
-                                OnHotkey((int)m.WParam);
-                                return true;
-                            }
-                        }
-                    }
-                }
-                return false;
-            }
-        }
-        //热键处理，只是控制是否显示
-        public void OnHotkey(int HotkeyID)
-        {
-            if (HotkeyID == Hotkey1)
-            {
-                this.Visible = !this.Visible;
-            }
-        }
 
 
         /// <summary>
@@ -152,7 +70,11 @@ namespace cs_pubg_virtual_scope
                 else
                     imgGraphics.CopyFromScreen(aim_x, aim_y, 0, 0, new Size(aim_w, aim_h));
                 //实际上是被拉伸显示的
-                this.BackgroundImage = image;
+
+                if (sharpen)
+                    this.BackgroundImage = SharpenImage(image);
+                else
+                    this.BackgroundImage = image;
                 
             }
         }
@@ -162,6 +84,50 @@ namespace cs_pubg_virtual_scope
             timer1.Stop();
         }
 
+        //锐化
+        public Bitmap SharpenImage(Bitmap bmp)
+        {
+            int height = bmp.Height;
+            int width = bmp.Width;
+            Bitmap newbmp = new Bitmap(width, height);
 
+            LockBitmap lbmp = new LockBitmap(bmp);
+            LockBitmap newlbmp = new LockBitmap(newbmp);
+            lbmp.LockBits();
+            newlbmp.LockBits();
+
+            Color pixel;
+            //拉普拉斯模板
+            int[] Laplacian = { -1, -1, -1, -1, 9, -1, -1, -1, -1 };
+            for (int x = 1; x < width - 1; x++)
+            {
+                for (int y = 1; y < height - 1; y++)
+                {
+                    int r = 0, g = 0, b = 0;
+                    int Index = 0;
+                    for (int col = -1; col <= 1; col++)
+                    {
+                        for (int row = -1; row <= 1; row++)
+                        {
+                            pixel = lbmp.GetPixel(x + row, y + col); r += pixel.R * Laplacian[Index];
+                            g += pixel.G * Laplacian[Index];
+                            b += pixel.B * Laplacian[Index];
+                            Index++;
+                        }
+                    }
+                    //处理颜色值溢出
+                    r = r > 255 ? 255 : r;
+                    r = r < 0 ? 0 : r;
+                    g = g > 255 ? 255 : g;
+                    g = g < 0 ? 0 : g;
+                    b = b > 255 ? 255 : b;
+                    b = b < 0 ? 0 : b;
+                    newlbmp.SetPixel(x - 1, y - 1, Color.FromArgb(r, g, b));
+                }
+            }
+            lbmp.UnlockBits();
+            newlbmp.UnlockBits();
+            return newbmp;
+        }
     }
 }

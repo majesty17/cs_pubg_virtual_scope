@@ -58,6 +58,7 @@
     <Compile Include="Form_scope.Designer.cs">
       <DependentUpon>Form_scope.cs</DependentUpon>
     </Compile>
+    <Compile Include="LockBitmap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

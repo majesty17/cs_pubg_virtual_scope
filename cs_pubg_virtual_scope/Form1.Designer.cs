@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox_sharpen = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.checkBox_color_rev = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -57,6 +60,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBox_sharpen);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.checkBox_color_rev);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -76,10 +82,37 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(284, 310);
+            this.groupBox1.Size = new System.Drawing.Size(284, 350);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "配置";
+            // 
+            // checkBox_sharpen
+            // 
+            this.checkBox_sharpen.AutoSize = true;
+            this.checkBox_sharpen.Location = new System.Drawing.Point(119, 251);
+            this.checkBox_sharpen.Name = "checkBox_sharpen";
+            this.checkBox_sharpen.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_sharpen.TabIndex = 21;
+            this.checkBox_sharpen.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(78, 251);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(35, 12);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "锐化:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 329);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(185, 12);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "调整参数之后需要重新开启才生效";
             // 
             // checkBox_color_rev
             // 
@@ -102,11 +135,11 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 282);
+            this.label6.Location = new System.Drawing.Point(12, 305);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(155, 12);
+            this.label6.Size = new System.Drawing.Size(95, 12);
             this.label6.TabIndex = 16;
-            this.label6.Text = "开启之后shift+g呼出、关闭";
+            this.label6.Text = "快捷键：shift+g";
             // 
             // numericUpDown_scope_opa
             // 
@@ -132,7 +165,7 @@
             // checkBox_switch
             // 
             this.checkBox_switch.AutoSize = true;
-            this.checkBox_switch.Location = new System.Drawing.Point(224, 282);
+            this.checkBox_switch.Location = new System.Drawing.Point(224, 322);
             this.checkBox_switch.Name = "checkBox_switch";
             this.checkBox_switch.Size = new System.Drawing.Size(48, 16);
             this.checkBox_switch.TabIndex = 13;
@@ -314,7 +347,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
-            this.ClientSize = new System.Drawing.Size(284, 310);
+            this.ClientSize = new System.Drawing.Size(284, 350);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -353,6 +386,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBox_color_rev;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox checkBox_sharpen;
     }
 }
 
