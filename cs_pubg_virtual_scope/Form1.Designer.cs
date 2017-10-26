@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox_color_rev = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDown_scope_opa = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,8 +45,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown_scope_times = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.checkBox_color_rev = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_scope_opa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_freq)).BeginInit();
@@ -81,6 +81,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "配置";
             // 
+            // checkBox_color_rev
+            // 
+            this.checkBox_color_rev.AutoSize = true;
+            this.checkBox_color_rev.Location = new System.Drawing.Point(119, 214);
+            this.checkBox_color_rev.Name = "checkBox_color_rev";
+            this.checkBox_color_rev.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_color_rev.TabIndex = 18;
+            this.checkBox_color_rev.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(54, 214);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 12);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "颜色反转:";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -97,7 +115,7 @@
             this.numericUpDown_scope_opa.Size = new System.Drawing.Size(43, 21);
             this.numericUpDown_scope_opa.TabIndex = 15;
             this.numericUpDown_scope_opa.Value = new decimal(new int[] {
-            80,
+            95,
             0,
             0,
             0});
@@ -139,7 +157,7 @@
             this.numericUpDown_freq.Size = new System.Drawing.Size(57, 21);
             this.numericUpDown_freq.TabIndex = 12;
             this.numericUpDown_freq.Value = new decimal(new int[] {
-            50,
+            60,
             0,
             0,
             0});
@@ -192,7 +210,7 @@
             this.numericUpDown_scope_weight.Size = new System.Drawing.Size(57, 21);
             this.numericUpDown_scope_weight.TabIndex = 9;
             this.numericUpDown_scope_weight.Value = new decimal(new int[] {
-            400,
+            420,
             0,
             0,
             0});
@@ -290,24 +308,6 @@
             0,
             0,
             65536});
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(54, 214);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 12);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "颜色反转:";
-            // 
-            // checkBox_color_rev
-            // 
-            this.checkBox_color_rev.AutoSize = true;
-            this.checkBox_color_rev.Location = new System.Drawing.Point(119, 214);
-            this.checkBox_color_rev.Name = "checkBox_color_rev";
-            this.checkBox_color_rev.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_color_rev.TabIndex = 18;
-            this.checkBox_color_rev.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
